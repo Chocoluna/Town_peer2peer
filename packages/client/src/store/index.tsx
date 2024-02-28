@@ -3,8 +3,8 @@ import { logger } from 'redux-logger'
 import boardReducer from '../slices/board-slice'
 
 export const store = configureStore({
-    reducer: boardReducer,
-    middleware: [logger],
+  reducer: boardReducer,
+  middleware: [logger],
 })
 
 // Infer the `RootState` and `AppDispatch` types from the store itself
