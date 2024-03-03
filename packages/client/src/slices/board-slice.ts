@@ -55,10 +55,28 @@ export const boardSlice = createSlice({
         return { payload, meta: { propagate } }
       },
     },
+    setHeight: {
+      reducer(state, action: PayloadAction<[string, string]>) {
+        console.log(action)
+        //TODO?
+      },
+      prepare(payload: [string, string], propagate: boolean) {
+        return { payload, meta: { propagate } }
+      },
+    },
+    setWidth: {
+      reducer(state, action: PayloadAction<[string, string]>) {
+        console.log(action)
+        //TODO?
+      },
+      prepare(payload: [string, string], propagate: boolean) {
+        return { payload, meta: { propagate } }
+      },
+    },
   },
 })
 
-export const { movePlayer, setAvatar } = boardSlice.actions
+export const { movePlayer, setAvatar, setHeight, setWidth } = boardSlice.actions
 
 // Other code such as selectors can use the imported `RootState` type
 // export const selectCount = (state: RootState) => state.slidesApp.value

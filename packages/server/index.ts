@@ -1,25 +1,73 @@
-import http from 'http';
-import express from 'express';
-import path from "path";
-// import { HelloRouteur } from './routes/hello.router';
-import cors from 'cors';
-import { SocketService } from './services/socketService';
+/* eslint-disable @typescript-eslint/no-var-requires */
+const express = require('express')
+const app = express()
+const port = process.env.PORT || 3000
 
-const DIST_DIR = path.join(__dirname, "../../client/dist");
-const HTML_FILE = path.join(DIST_DIR, "index.html");
+// socket
+const http = require('http')
+const server = http.createServer(app)
+const { Server } = require('socket.io')
+const io = new Server(server)
 
-const app = express();
-const server = http.createServer(app);
-const socketService = new SocketService(server);
+const path = require('path')
 
-const port = process.env.PORT || 3000;
+const DIST_DIR = path.join(__dirname, '../../client/dist')
+const HTML_FILE = path.join(DIST_DIR, 'index.html')
 
-app.use(express.static(DIST_DIR));
+const mockResponse = {
+  foo: 'bar',
+  bar: 'foo',
+}
 
-app.get("*", (req, res, next) => {
-  res.sendFile(HTML_FILE);
-});
+app.get('/api', (req, res) => {
+  res.send(mockResponse)
+})
+
+app.get('/', (req, res) => {
+  res.sendFile(HTML_FILE)
+})
+
+app.use(express.static(DIST_DIR))
+
+let idSocket = []
+const getMinSockId = () => {
+  return idSocket.reduce((acc, curr) => {
+    return acc < curr ? acc : curr
+  })
+}
+
+io.on('connection', (socket) => {
+  console.log('a user connected ' + socket.id)
+  idSocket.push(socket.id)
+
+  if (idSocket.length > 1) {
+    const minSocketId = getMinSockId()
+    console.log('the initiator is : ', getMinSockId())
+    io.sockets.sockets.forEach((socket) => {
+      const data = {
+        peerId: socket.id,
+        initiator: socket.id === minSocketId,
+      }
+      console.log(data)
+      socket.broadcast.emit('peer', data)
+    })
+  }
+
+  socket.on('signal', (msg) => {
+    const peer2Id = msg.peerId
+    msg.peerId = socket.id
+    io.to(peer2Id).emit('signal', msg)
+  })
+
+  socket.on('disconnect', () => {
+    console.log('user disconnected ' + socket.id)
+    socket.broadcast.emit('PeerDeco', socket.id)
+    idSocket = idSocket.filter((socketId) => {
+      return socketId !== socket.id
+    })
+  })
+})
 
 server.listen(port, () => {
-  process.stdout.write(`Server started on port: ${port}\n`);
-});
+  process.stdout.write(`Server started on port: ${port}\n`)
+})

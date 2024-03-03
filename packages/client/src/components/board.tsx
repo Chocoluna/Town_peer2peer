@@ -16,7 +16,7 @@ export const Board: React.FC = () => {
   const gridRef = useRef<HTMLDivElement>(null)
   const dispatch = useDispatch<AppDispatch>()
 
-  const tileWidth = Math.floor(window.innerHeight / 60) 
+  const tileWidth = Math.floor(window.innerHeight / 60)
 
   const playerPosition: [number, number] = useAppSelector(
     (state) => state.playerPosition
@@ -61,7 +61,7 @@ export const Board: React.FC = () => {
     backgroundImage: `url(` + samplemap + `)`,
     backgroundSize: `${60 * tileWidth}px` as const,
     backgroundRepeat: `no-repeat` as const,
-}
+  }
 
   const cellStyle: React.CSSProperties = {
     width: `${tileWidth}px`,
@@ -118,7 +118,11 @@ export const Board: React.FC = () => {
 
   return (
     <div className="flex flex-row space-x-2 max-h-screen h-screen">
-      <div className="flew-grow-0 h-screen aspect-square" ref={gridRef} style={boardStyle}>
+      <div
+        className="flew-grow-0 h-screen aspect-square"
+        ref={gridRef}
+        style={boardStyle}
+      >
         {displayPlayers()}
       </div>
       {/* <div className="flex-grow-0 flex-col space-y-2">
