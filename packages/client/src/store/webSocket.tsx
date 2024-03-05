@@ -1,10 +1,10 @@
 import { AnyAction, Dispatch, Middleware } from '@reduxjs/toolkit'
 import SimplePeer from 'simple-peer'
 import { io } from 'socket.io-client'
-import { movePlayer, setAvatar } from 'src/slices/board-slice'
+import { movePlayer, setAvatar } from '../slices/board-slice'
 import { store } from './index'
 
-// on se connecte au serveur
+// connexion to the server
 const socket = io()
 const useTrickle = true
 
@@ -18,30 +18,30 @@ socket.on('action', (msg: any) => {
 export const propagateSocketMiddleware: Middleware<Dispatch> =
   () => (next) => (action: AnyAction) => {
     // Explorez la structure de l'objet action :
-    // console.log('propagateSocketMiddleware', action)
+    console.log('propagateSocketMiddleware', action)
     // socket.emit('action', action)
-    // verifie si on propage l'action.
+    // check if we propagate the action.
     console.log('peer : ', peer)
     if (peer !== undefined && peer !== null) {
-      // if (action.meta.propagate) {
-      // JSON doit etre  serialise avec JSON.stringify(objet)
-      switch (action.type) {
-        case 'board/setStream':
-          peer.addStream(action.payload[0])
-          break
-        case 'board/removeStream':
-          peer.removeStream(action.payload[0])
-          break
-        default:
-          peer.send(JSON.stringify(action))
-          break
+      if (action.meta.propagate) {
+        // JSON must be serialised with JSON.stringify(objet)
+        switch (action.type) {
+          case 'board/setStream':
+            peer.addStream(action.payload[0])
+            break
+          case 'board/removeStream':
+            peer.removeStream(action.payload[0])
+            break
+          default:
+            peer.send(JSON.stringify(action))
+            break
+        }
       }
-      // }
     } else {
       console.log('peer not found')
     }
 
-    // Après diffusion au serveur on fait suivre l'action au prochain middleware
+    // After sending info to the sever, you pass the action down to the next middleware
     next(action)
   }
 
@@ -86,13 +86,13 @@ socket.on('peer', (data: { peerId: string; initiator: boolean }) => {
 
   peer.on('connect', function () {
     console.log('Peer connection established')
-    // vous pouvez essayer d'envoyer des donnees au pair avec send("hello") pour voir si ça marche - DONE
+    // checking if it works by sending send("hello") to the peer
     peer.send('Hello, je suis : ' + socket.id)
 
     const action = {
       type: 'connexion',
-      // store.getstate obligatoire car la version hooks ne marche pas.
-      // erreur => Error: Minified React error
+      // store.getstate because the hooks version doesn't work.
+      // Error: Minified React error
       playerAvatar: store.getState().playerAvatar,
       playerPosition: store.getState().playerPosition,
     }
@@ -102,39 +102,41 @@ socket.on('peer', (data: { peerId: string; initiator: boolean }) => {
 
   peer.on('data', function (data) {
     console.log('Received data from peer:' + data)
-    // les donnees arrivent sous forme de string,
-    // si le string est un objet JSON serialise avec JSON.stringify(objet)
-    // JSON.parse(string) permet de reconstruire l'objet
+    // data received as strings,
+    // if the string is a JSON object serialised with JSON.stringify(objet)
+    // JSON.parse(string) to reconstruct the object
     let restructuredData
     try {
       restructuredData = JSON.parse(data)
     } catch (e) {
       restructuredData = data
     }
-    // TODO take action after receiving data from peer
-    // switch (restructuredData.type) {
-    //   case 'board/movePlayer':
-    //     store.dispatch(
-    //       movePlayer([restructuredData.payload[0], 'remote'], false)
-    //     )
-    //     break
-    //   case 'board/setAvatar':
-    //     store.dispatch(
-    //       setAvatar([restructuredData.payload[0], 'remote'], false)
-    //     )
-    //     break
-    //   case 'connexion':
-    //     // type: 'connexion',
-    //     // playerAvatar: playerAvatar,
-    //     // playerPosition: playerPosition,
-    //     store.dispatch(
-    //       movePlayer([restructuredData.playerPosition, 'remote'], false)
-    //     )
-    //     store.dispatch(
-    //       setAvatar([restructuredData.playerAvatar, 'remote'], false)
-    //     )
-    // }
+    // TODO take action after receiving data from peer - DONE
+    switch (restructuredData.type) {
+      case 'board/movePlayer':
+        store.dispatch(
+          movePlayer([restructuredData.payload[0], 'remote'], false)
+        )
+        break
+      case 'board/setAvatar':
+        store.dispatch(
+          setAvatar([restructuredData.payload[0], 'remote'], false)
+        )
+        break
+      case 'connexion':
+        // type: 'connexion',
+        // playerAvatar: playerAvatar,
+        // playerPosition: playerPosition,
+        store.dispatch(
+          movePlayer([restructuredData.playerPosition, 'remote'], false)
+        )
+        store.dispatch(
+          setAvatar([restructuredData.playerAvatar, 'remote'], false)
+        )
+        break
+    }
   })
+
   peer.on('stream', (stream): void => {
     //   TP suivant 3.3
     console.log('got stream ' + stream)

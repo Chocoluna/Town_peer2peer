@@ -29,24 +29,20 @@ app.get('/', (req, res) => {
 
 app.use(express.static(DIST_DIR))
 
+// initiator is the first one in the board
 let idSocket = []
-const getMinSockId = () => {
-  return idSocket.reduce((acc, curr) => {
-    return acc < curr ? acc : curr
-  })
-}
 
 io.on('connection', (socket) => {
   console.log('a user connected ' + socket.id)
   idSocket.push(socket.id)
 
   if (idSocket.length > 1) {
-    const minSocketId = getMinSockId()
-    console.log('the initiator is : ', getMinSockId())
+    const initiator = idSocket[0]
+    console.log('the initiator is : ', initiator)
     io.sockets.sockets.forEach((socket) => {
       const data = {
         peerId: socket.id,
-        initiator: socket.id === minSocketId,
+        initiator: socket.id === initiator,
       }
       console.log(data)
       socket.broadcast.emit('peer', data)

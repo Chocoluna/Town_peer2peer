@@ -33,11 +33,16 @@ export const boardSlice = createSlice({
   reducers: {
     // Use the PayloadAction type to declare the contents of `action.payload`
     movePlayer: {
-      reducer(state, action: PayloadAction<[number, number]>) {
+      reducer(state, action: PayloadAction<[[number, number], string]>) {
         console.log(action)
-        state.playerPosition = action.payload
+        if (action.payload[1] === 'local') {
+          state.playerPosition = action.payload[0]
+        }
+        if (action.payload[1] === 'remote') {
+          state.remotePlayerPosition = action.payload[0]
+        }
       },
-      prepare(payload: [number, number], propagate: boolean) {
+      prepare(payload: [[number, number], string], propagate: boolean) {
         return { payload, meta: { propagate } }
       },
     },

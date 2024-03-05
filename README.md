@@ -3,7 +3,7 @@
 ## Contributeurs
 
 - COUTURIR-PETRASSON Claire, p1710174
-- PHANG Romeo, p
+- PHANG Romeo, p1907961
 
 ## Build
 
@@ -28,13 +28,13 @@ pour installer des dependances spécifiques au client ou server il faut dabord c
 - [ ] Un style Tailwind (ou autre) est utilisé de manière judicieuse (aka l’application ressemble à quelque chose) (2pt)
 - [ ] Les states et props de React sont bien utilisées (1pt).
 - [ ] Utilisation des hooks appropriés (2pt).
-- [ ] Mise en relation des pairs
-  - [ ] signalement au serveur (2pt)
-  - [ ] établissement de la connexion entre les deux pairs (2pt)
-- [ ] Data (5pt)
-  - [ ] les pairs peuvent s’envoyer des messages (2pt)
-  - [ ] l’envoi de message est géré dans un middleware (2pt)
-  - [ ] plusieurs participants bougent de manière cohérente (1pt)
+- [X] Mise en relation des pairs
+  - [X] signalement au serveur (2pt)
+  - [X] établissement de la connexion entre les deux pairs (2pt)
+- [X] Data (5pt)
+  - [X] les pairs peuvent s’envoyer des messages (2pt)
+  - [X] l’envoi de message est géré dans un middleware (2pt)
+  - [X] plusieurs participants bougent de manière cohérente (1pt)
 - [ ] VidéoChat (5pt)
   - [ ] le flux local s’affiche
   - [ ] le flux distant est bien récupéré
