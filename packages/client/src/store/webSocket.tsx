@@ -1,7 +1,12 @@
 import { AnyAction, Dispatch, Middleware } from '@reduxjs/toolkit'
 import SimplePeer from 'simple-peer'
 import { io } from 'socket.io-client'
-import { movePlayer, setAvatar } from '../slices/board-slice'
+import {
+  movePlayer,
+  setAvatar,
+  setStream,
+  removeStream,
+} from '../slices/board-slice'
 import { store } from './index'
 
 // connexion to the server
@@ -138,8 +143,21 @@ socket.on('peer', (data: { peerId: string; initiator: boolean }) => {
   })
 
   peer.on('stream', (stream): void => {
-    //   TP suivant 3.3
+    //   TP suivant 3.3 - DONE
     console.log('got stream ' + stream)
+    store.dispatch(setStream([stream, 'remote'], false))
+  })
+
+  peer.on('disconnect', function (data) {
+    console.log('received disconnect on socket')
+    peer.destroy()
+  })
+
+  peer.on('close', () => {
+    // store.dispatch(movePlayer([[0, 0], 'remote'], false))
+    // store.dispatch(setAvatar(['', 'remote'], false))
+    // store.dispatch(removeStream(null, false))
+    // socket.close()
   })
 
   // TODO ajouter ce peer à une liste de tous les pairs auxquels vous êtes connecté

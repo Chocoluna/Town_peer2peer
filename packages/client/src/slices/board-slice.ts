@@ -11,6 +11,8 @@ interface AppState {
     height: number
     tiles: Tile[]
   }
+  localStream: MediaStream | null
+  remoteStream: MediaStream | null
 }
 
 // Define the initial state using that type
@@ -24,6 +26,8 @@ const initialState: AppState = {
     height: 60,
     tiles: [], // unused for now, could be useful for collision management
   },
+  localStream: null,
+  remoteStream: null,
 }
 
 export const boardSlice = createSlice({
@@ -78,10 +82,39 @@ export const boardSlice = createSlice({
         return { payload, meta: { propagate } }
       },
     },
+    setStream: {
+      reducer(state, action: PayloadAction<[MediaStream, string]>) {
+        if (action.payload[1] === 'local') {
+          state.localStream = action.payload[0]
+        }
+        if (action.payload[1] === 'remote') {
+          state.localStream = action.payload[0]
+        }
+      },
+      prepare(payload: [MediaStream, string], propagate: boolean) {
+        return { payload, meta: { propagate } }
+      },
+    },
+    removeStream: {
+      reducer(state) {
+        state.localStream = null
+        state.remoteStream = null
+      },
+      prepare(payload: MediaStream | null = null, propagate: boolean = true) {
+        return { payload, meta: { propagate } }
+      },
+    },
   },
 })
 
-export const { movePlayer, setAvatar, setHeight, setWidth } = boardSlice.actions
+export const {
+  movePlayer,
+  setAvatar,
+  setHeight,
+  setWidth,
+  setStream,
+  removeStream,
+} = boardSlice.actions
 
 // Other code such as selectors can use the imported `RootState` type
 // export const selectCount = (state: RootState) => state.slidesApp.value
