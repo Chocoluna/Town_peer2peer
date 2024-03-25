@@ -16,17 +16,13 @@ const useTrickle = true
 let peer: SimplePeer.Instance
 
 socket.on('action', (msg: any) => {
-  console.log('action', msg)
   msg.payload.user = false
 })
 
 export const propagateSocketMiddleware: Middleware<Dispatch> =
   () => (next) => (action: AnyAction) => {
-    // Explorez la structure de l'objet action :
-    console.log('propagateSocketMiddleware', action)
     // socket.emit('action', action)
     // check if we propagate the action.
-    console.log('peer : ', peer)
     if (peer !== undefined && peer !== null) {
       if (action.meta.propagate) {
         // JSON must be serialised with JSON.stringify(objet)
@@ -51,7 +47,6 @@ export const propagateSocketMiddleware: Middleware<Dispatch> =
   }
 
 socket.on('peer', (data: { peerId: string; initiator: boolean }) => {
-  console.log('peer receive', data)
   const peerId = data.peerId
   const initiator = data.initiator
 
@@ -65,8 +60,6 @@ socket.on('peer', (data: { peerId: string; initiator: boolean }) => {
       ],
     },
   })
-
-  console.log(' function socket.on(peer : ', peer)
 
   // TODO ajouter tous les listeners au peer - DONE
 
@@ -107,9 +100,6 @@ socket.on('peer', (data: { peerId: string; initiator: boolean }) => {
 
   peer.on('data', function (data) {
     console.log('Received data from peer:' + data)
-    // data received as strings,
-    // if the string is a JSON object serialised with JSON.stringify(objet)
-    // JSON.parse(string) to reconstruct the object
     let restructuredData
     try {
       restructuredData = JSON.parse(data)
@@ -129,9 +119,6 @@ socket.on('peer', (data: { peerId: string; initiator: boolean }) => {
         )
         break
       case 'connexion':
-        // type: 'connexion',
-        // playerAvatar: playerAvatar,
-        // playerPosition: playerPosition,
         store.dispatch(
           movePlayer([restructuredData.playerPosition, 'remote'], false)
         )
@@ -144,7 +131,6 @@ socket.on('peer', (data: { peerId: string; initiator: boolean }) => {
 
   peer.on('stream', (stream): void => {
     //   TP suivant 3.3 - DONE
-    console.log('got stream ' + stream)
     store.dispatch(setStream([stream, 'remote'], false))
   })
 
@@ -154,11 +140,7 @@ socket.on('peer', (data: { peerId: string; initiator: boolean }) => {
   })
 
   peer.on('close', () => {
-    // store.dispatch(movePlayer([[0, 0], 'remote'], false))
-    // store.dispatch(setAvatar(['', 'remote'], false))
-    // store.dispatch(removeStream(null, false))
     socket.close()
+    console.log('close peer connection')
   })
-
-  // TODO ajouter ce peer à une liste de tous les pairs auxquels vous êtes connecté
 })

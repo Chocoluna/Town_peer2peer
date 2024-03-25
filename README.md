@@ -13,9 +13,14 @@
 
 - `yarn dev` pour démarrer le server sur le port 3000.
 
+## Utilisation
+
+Chaque utilisateur choisit un avatar et le déplace grâce aux flèches du clavier.
+L'appel video et audio se déclenche lorsque les avatars sont à deux cases ou moins l'un de l'autre, et se coupe s'ils s'éloignent à 5 cases ou plus l'un de l'autre.
+
 ## Spécificités du projet
 
-Le projet a été testé sur Firefox et Chrome. Le projet fonctionne bien sur les deux navigateurs mais avec quelques spécifités sur Firefox :
+Le projet a été testé sur Firefox et Chrome. Le projet fonctionne bien sur les deux navigateurs mais avec quelques spécifités pour Firefox :
 
 - Si l'utilisateur a une option pour couper physiquement la caméra de son ordinateur, et que sa caméra est éteinte au moment de commencer l'appel, une modale apparait pour indiquer le problème sur les deux navigateurs. Sur Chrome, une fois que l'utilisateur a lancé sa caméra, le call se relance tout seul, mais sur Firefox il faut parfois réactualiser la fenêtre et relancer le call pour que tout fonctionne bien.
 
@@ -23,13 +28,14 @@ Le projet a été testé sur Firefox et Chrome. Le projet fonctionne bien sur le
 
 ## Etat du projet
 
-### Malus (points négatifs)
+### Fonctionnalités de base
 
-- [ ] linter original qui ne passe pas (ou trop d’exceptions dans le code) -2pt
-- [ ] la séquence yarn install, yarn build et yarn dev qui ne passe pas -2pt
-- [ ] README pas clair sur les spécificité du projet (build, déploiement, ce qui marche et ce qui ne marche pas, sur comment tester…) -2pt
+*Tous les points ci-dessous sont fonctionnels.*
 
-### Points
+- [X] `yarn lint` passe sans erreur
+- [X] la séquence yarn install, yarn build et yarn dev qui passe sans erreur
+- [X] README détaillé avec les spécificité du projet (build, déploiement, ce qui marche et ce qui ne marche pas…)
+</br>
 
 - [ ] Un style Tailwind (ou autre) est utilisé de manière judicieuse (aka l’application ressemble à quelque chose) (2pt)
 - [X] Les states et props de React sont bien utilisées (1pt).
@@ -48,7 +54,7 @@ Le projet a été testé sur Firefox et Chrome. Le projet fonctionne bien sur le
   - [X] le tout fonctionne sur localhost
   - [X] la fermeture de l’appel se passe correctement
 
-### Bonus
+### Fonctionnalités Bonus
 
 - [ ] Déploiement
 - [ ] Gestion de plus de deux pairs.

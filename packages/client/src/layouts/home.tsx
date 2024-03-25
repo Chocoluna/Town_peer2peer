@@ -1,9 +1,9 @@
-import { FC, PointerEventHandler, useEffect, useRef, useState } from 'react'
+import * as React from 'react'
 
-const Home: FC = () => {
-  const blobRef = useRef<HTMLDivElement>(null)
+const Home: React.FC = () => {
+  const blobRef = React.useRef<HTMLDivElement>(null)
 
-  const animate: PointerEventHandler = (e) => {
+  const animate: React.PointerEventHandler = (e) => {
     const { clientX, clientY, width, height } = e
     const decimalX = (clientX / window.innerWidth) * 100,
       decimalY = (clientY / window.innerHeight) * 100
@@ -33,4 +33,3 @@ const Home: FC = () => {
   )
 }
 export default Home
-

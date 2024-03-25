@@ -12,7 +12,6 @@ export default defineConfig({
     },
   },
   plugins: [react(), nodePolyfills()],
-  // define: {global: {}}
   define: {
     'process.env': {},
   },

@@ -38,7 +38,6 @@ export const boardSlice = createSlice({
     // Use the PayloadAction type to declare the contents of `action.payload`
     movePlayer: {
       reducer(state, action: PayloadAction<[[number, number], string]>) {
-        console.log(action)
         switch (action.payload[1]) {
           case 'local':
             state.playerPosition = action.payload[0]
@@ -54,7 +53,6 @@ export const boardSlice = createSlice({
     },
     setAvatar: {
       reducer(state, action: PayloadAction<[string, string]>) {
-        console.log(action)
         if (action.payload[1] === 'local') {
           state.playerAvatar = action.payload[0]
         }
@@ -68,7 +66,6 @@ export const boardSlice = createSlice({
     },
     setHeight: {
       reducer(state, action: PayloadAction<[string, string]>) {
-        console.log(action)
         //TODO?
       },
       prepare(payload: [string, string], propagate: boolean) {
@@ -77,7 +74,6 @@ export const boardSlice = createSlice({
     },
     setWidth: {
       reducer(state, action: PayloadAction<[string, string]>) {
-        console.log(action)
         //TODO?
       },
       prepare(payload: [string, string], propagate: boolean) {
@@ -86,7 +82,6 @@ export const boardSlice = createSlice({
     },
     setStream: {
       reducer(state, action: PayloadAction<[MediaStream, string]>) {
-        console.log('payload ' + JSON.stringify(action.payload[0]))
         if (action.payload[1] === 'local') {
           state.localStream = action.payload[0]
         }

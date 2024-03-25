@@ -1,13 +1,13 @@
-import { FC } from 'react'
-import { AvatarPicker } from './components/avatar-picker'
+import * as React from 'react'
 import { Board } from './components/board'
 
-const App: FC = () => {
+const App: React.FC = () => {
   return (
-    <div className="h-screen bg-slate-800">
-      <Board />
-      {/* <AvatarPicker/> */}
-    </div>
+    <>
+      <div className="h-screen bg-slate-800">
+        <Board />
+      </div>
+    </>
   )
 }
 

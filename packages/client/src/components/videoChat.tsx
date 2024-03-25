@@ -26,8 +26,6 @@ function VideoChat() {
   }
 
   const call = () => {
-    // TODO voir la doc de simple-peer
-    // vous pouvez passer par un dispatch pour gérer ça dans le middleware
     if (callAvailable) {
       start()
       setCall(false)
@@ -90,9 +88,9 @@ function VideoChat() {
     (state) => state.remotePlayerAvatar
   )
 
-  // ////////////////////
-  // //////DISTANCE//////
-  // ////////////////////
+  ////////////////////
+  //////DISTANCE//////
+  ////////////////////
 
   const diffX = (
     playerPosition: [number, number],
@@ -117,19 +115,14 @@ function VideoChat() {
 
   // useEffect hook to trigger actions based on changes in player and remote player positions
   useEffect(() => {
-    // This block will be called whenever playerPosition or remotePlayerPosition changes
-    if (distance() < 4) {
-      console.log('distance < 4 = ' + distance)
+    if (distance() < 3) {
       if (callAvailable && playerAvatar != '' && remotePlayerAvatar != '') {
-        // Call function if available and players are within a certain distance
-        console.log('call Available, distance = ' + distance)
+        // Call function if available and players are within 2 squares or less
         call()
       }
-    } else {
-      console.log('distance > 4 = ' + distance)
+    } else if (distance() > 4) {
       if (hangupAvailable) {
-        console.log('hangupavailable, distance = ' + distance)
-        // Hangup function if available and players are further apart
+        // Hangup function if available and players are 5 squares apart or more
         hangup()
       }
     }
