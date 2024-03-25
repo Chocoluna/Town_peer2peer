@@ -157,7 +157,7 @@ socket.on('peer', (data: { peerId: string; initiator: boolean }) => {
     // store.dispatch(movePlayer([[0, 0], 'remote'], false))
     // store.dispatch(setAvatar(['', 'remote'], false))
     // store.dispatch(removeStream(null, false))
-    // socket.close()
+    socket.close()
   })
 
   // TODO ajouter ce peer à une liste de tous les pairs auxquels vous êtes connecté

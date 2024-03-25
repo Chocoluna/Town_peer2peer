@@ -6,7 +6,7 @@ const App: FC = () => {
   return (
     <div className="h-screen bg-slate-800">
       <Board />
-      <AvatarPicker/>
+      {/* <AvatarPicker/> */}
     </div>
   )
 }

@@ -39,11 +39,13 @@ export const boardSlice = createSlice({
     movePlayer: {
       reducer(state, action: PayloadAction<[[number, number], string]>) {
         console.log(action)
-        if (action.payload[1] === 'local') {
-          state.playerPosition = action.payload[0]
-        }
-        if (action.payload[1] === 'remote') {
-          state.remotePlayerPosition = action.payload[0]
+        switch (action.payload[1]) {
+          case 'local':
+            state.playerPosition = action.payload[0]
+            break
+          case 'remote':
+            state.remotePlayerPosition = action.payload[0]
+            break
         }
       },
       prepare(payload: [[number, number], string], propagate: boolean) {
@@ -84,11 +86,12 @@ export const boardSlice = createSlice({
     },
     setStream: {
       reducer(state, action: PayloadAction<[MediaStream, string]>) {
+        console.log('payload ' + JSON.stringify(action.payload[0]))
         if (action.payload[1] === 'local') {
           state.localStream = action.payload[0]
         }
         if (action.payload[1] === 'remote') {
-          state.localStream = action.payload[0]
+          state.remoteStream = action.payload[0]
         }
       },
       prepare(payload: [MediaStream, string], propagate: boolean) {

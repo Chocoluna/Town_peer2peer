@@ -10,6 +10,7 @@ import adam from '@/img/Adam.png'
 import amelia from '@/img/Amelia.png'
 import { useCallback, useEffect } from 'react'
 import { AvatarPicker } from './avatar-picker'
+import VideoChat from './videoChat'
 
 export const Board: React.FC = () => {
   const board = useAppSelector((state) => state.board)
@@ -125,11 +126,12 @@ export const Board: React.FC = () => {
       >
         {displayPlayers()}
       </div>
-      {/* <div className="flex-grow-0 flex-col space-y-2">
-        <AvatarPicker></AvatarPicker>
-        <div className="item h-48">Video1 Placeholder</div>
-        <div className="item h-48">Video2 Placeholder</div>
-      </div> */}
+      <div className="flex-grow-0 flex-col space-y-2">
+        <AvatarPicker />
+        <div className="item h-60 w-100">
+          <VideoChat />
+        </div>
+      </div>
     </div>
   )
 }
