@@ -10,49 +10,52 @@ import amelia from '@/img/Amelia.png'
 import { useCallback } from 'react'
 
 export const AvatarPicker: React.FC = () => {
-    const playerAvatar: string = useAppSelector((state) => state.playerAvatar)
+  const playerAvatar: string = useAppSelector((state) => state.playerAvatar)
 
-    const dispatch = useDispatch<AppDispatch>()
+  const dispatch = useDispatch<AppDispatch>()
 
-    const avatarSelected: React.MouseEventHandler = useCallback(
-        (event) => {
-            console.log(event)
-            const name = event.currentTarget.id
-            dispatch(setAvatar([name, 'local'], true))
-        },
-        [playerAvatar]
-    )
+  const avatarSelected: React.MouseEventHandler = useCallback(
+    (event) => {
+      console.log(event)
+      const name = event.currentTarget.id
+      dispatch(setAvatar([name, 'local'], true))
+    },
+    [playerAvatar]
+  )
 
-    return (
-        <div className="flex flex-row space-x-2 w-48 h-12" id="avatarList">
-            <button
-                id="Adam"
-                onClick={avatarSelected}
-                className={playerAvatar === 'Adam' ? 'selected' : ''}
-            >
-                <img className="m-2" src={adam}></img>
-            </button>
-            <button
-                id="Alex"
-                onClick={avatarSelected}
-                className={playerAvatar === 'Alex' ? 'selected' : ''}
-            >
-                <img className="m-2" src={alex}></img>
-            </button>
-            <button
-                id="Amelia"
-                onClick={avatarSelected}
-                className={playerAvatar === 'Amelia' ? 'selected' : ''}
-            >
-                <img className="m-2" src={amelia}></img>
-            </button>
-            <button
-                id="Bob"
-                onClick={avatarSelected}
-                className={playerAvatar === 'Bob' ? 'selected' : ''}
-            >
-                <img className="m-2" src={bob}></img>
-            </button>
-        </div>
-    )
+  return (
+    <div className="card mt-4 my-2 items-center w-48 h-12" id="avatarList">
+      <h2 className="card-title">Pick an Avatar !</h2>
+      <div className="card-body flex flex-row space-x-2 items-center ">
+        <button
+          id="Adam"
+          onClick={avatarSelected}
+          className={playerAvatar === 'Adam' ? 'selected' : ''}
+        >
+          <img className="m-2" src={adam}></img>
+        </button>
+        <button
+          id="Alex"
+          onClick={avatarSelected}
+          className={playerAvatar === 'Alex' ? 'selected' : ''}
+        >
+          <img className="m-2" src={alex}></img>
+        </button>
+        <button
+          id="Amelia"
+          onClick={avatarSelected}
+          className={playerAvatar === 'Amelia' ? 'selected' : ''}
+        >
+          <img className="m-2" src={amelia}></img>
+        </button>
+        <button
+          id="Bob"
+          onClick={avatarSelected}
+          className={playerAvatar === 'Bob' ? 'selected' : ''}
+        >
+          <img className="m-2" src={bob}></img>
+        </button>
+      </div>
+    </div>
+  )
 }

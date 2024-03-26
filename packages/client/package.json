@@ -33,6 +33,7 @@
     "@types/redux-logger": "^3.0.9",
     "@types/simple-peer": "^9.11.8",
     "@vitejs/plugin-react-swc": "^3.0.0",
+    "daisyui": "^4.9.0",
     "typescript": "^4.9.5",
     "vite": "^4.1.0"
   }

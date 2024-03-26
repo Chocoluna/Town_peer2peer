@@ -7,6 +7,7 @@ function VideoChat() {
   const [startAvailable, setStart] = useState(true)
   const [callAvailable, setCall] = useState(true)
   const [hangupAvailable, setHangup] = useState(false)
+  const [callActive, setCallActive] = useState(false) // state to check if the call is active
 
   const localVideoRef = useRef<HTMLVideoElement>(null)
   const remoteVideoRef = useRef<HTMLVideoElement>(null)
@@ -28,6 +29,7 @@ function VideoChat() {
   const call = () => {
     if (callAvailable) {
       start()
+      setCallActive(true)
       setCall(false)
       setHangup(true)
     }
@@ -36,6 +38,7 @@ function VideoChat() {
   const hangup = () => {
     setCall(true)
     setHangup(false)
+    setCallActive(false)
     store.dispatch(removeStream(null, false))
     if (localVideoRef.current) {
       localVideoRef.current.srcObject = null
@@ -126,29 +129,38 @@ function VideoChat() {
         hangup()
       }
     }
-  }, [playerPosition, remotePlayerPosition, callAvailable, hangupAvailable])
+  }, [
+    playerPosition,
+    remotePlayerPosition,
+    callAvailable,
+    hangupAvailable,
+    callActive,
+  ])
 
   return (
     <div>
-      <div>
-        <div className="relative">
-          <video
-            className="block mx-auto border-2 border-gray-900 rounded-md w-96 z-10"
-            ref={remoteVideoRef}
-            autoPlay
-          >
-            <track kind="captions" srcLang="en" label="english_captions" />
-          </video>
-          <video
-            className="block absolute bottom-0 right-0 border-2 border-gray-900 rounded-md w-32 z-20"
-            ref={localVideoRef}
-            autoPlay
-            muted
-          >
-            <track kind="captions" srcLang="en" label="english_captions" />
-          </video>
+      {callActive && (
+        <div>
+          <div className="relative">
+            <video
+              className="block mx-auto border-2 border-gray-900 rounded-md w-96 z-10"
+              ref={remoteVideoRef}
+              autoPlay
+            >
+              <track kind="captions" srcLang="en" label="english_captions" />
+            </video>
+            <video
+              className="block absolute bottom-0 right-0 border-2 border-gray-900 rounded-md w-32 z-20 mask mask-hexagon-2"
+              src="https://daisyui.com/images/stock/photo-1567653418876-5bb0e566e1c2.jpg"
+              ref={localVideoRef}
+              autoPlay
+              muted
+            >
+              <track kind="captions" srcLang="en" label="english_captions" />
+            </video>
+          </div>
         </div>
-      </div>
+      )}
     </div>
   )
 }
