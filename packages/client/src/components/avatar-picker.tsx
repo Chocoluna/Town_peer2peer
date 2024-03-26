@@ -24,36 +24,42 @@ export const AvatarPicker: React.FC = () => {
   )
 
   return (
-    <div className="card mt-4 my-2 items-center w-48 h-12" id="avatarList">
+    <div
+      className="card-compact mt-4 my-2 w-48 h-8 items-center"
+      id="avatarList"
+    >
       <h2 className="card-title">Pick an Avatar !</h2>
-      <div className="card-body flex flex-row space-x-2 items-center ">
+      <div
+        className="card-body flex flex-row space-x-2 items-center"
+        style={{ backgroundColor: 'revert-layer' }}
+      >
         <button
           id="Adam"
           onClick={avatarSelected}
           className={playerAvatar === 'Adam' ? 'selected' : ''}
         >
-          <img className="m-2" src={adam}></img>
+          <img className="m-1" src={adam}></img>
         </button>
         <button
           id="Alex"
           onClick={avatarSelected}
           className={playerAvatar === 'Alex' ? 'selected' : ''}
         >
-          <img className="m-2" src={alex}></img>
+          <img className="m-1" src={alex}></img>
         </button>
         <button
           id="Amelia"
           onClick={avatarSelected}
           className={playerAvatar === 'Amelia' ? 'selected' : ''}
         >
-          <img className="m-2" src={amelia}></img>
+          <img className="m-1" src={amelia}></img>
         </button>
         <button
           id="Bob"
           onClick={avatarSelected}
           className={playerAvatar === 'Bob' ? 'selected' : ''}
         >
-          <img className="m-2" src={bob}></img>
+          <img className="m-1" src={bob}></img>
         </button>
       </div>
     </div>
