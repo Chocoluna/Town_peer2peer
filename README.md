@@ -13,12 +13,14 @@
 
 - `yarn dev` pour démarrer le server en local sur le port 3000.
 
-http://localhost:3000/
+<http://localhost:3000/>
+
+L'application est déployée sur : <https://town.nautibus.xyz/>
 
 ## Utilisation
 
 Chaque utilisateur choisit un avatar et le déplace grâce aux flèches du clavier.
-L'appel video et audio se déclenche lorsque les avatars sont à deux cases ou moins l'un de l'autre, et se coupe s'ils s'éloignent à 5 cases ou plus l'un de l'autre.
+L'appel video / audio se déclenche lorsque les avatars sont à deux cases ou moins l'un de l'autre, et se coupe s'ils s'éloignent à 5 cases ou plus l'un de l'autre.
 L'élément "aperçu vidéo" n'apparait sur la page que si l'appel entre les deux utilisateurs est lancé.
 
 ## Spécificités du projet
@@ -42,7 +44,7 @@ Sans camera / webcam active, le projet ne peux pas être testé. Sur un projet p
 - [X] README détaillé avec les spécificité du projet (build, déploiement, ce qui marche et ce qui ne marche pas…)
 </br>
 
-- [ ] Un style Tailwind (ou autre) est utilisé de manière judicieuse (aka l’application ressemble à quelque chose) (2pt)
+- [X] Un style Tailwind (ou autre) est utilisé de manière judicieuse (aka l’application ressemble à quelque chose) (2pt)
 - [X] Les states et props de React sont bien utilisées (1pt).
 - [X] Utilisation des hooks appropriées (2pt).
 - [X] Mise en relation des pairs
@@ -61,7 +63,7 @@ Sans camera / webcam active, le projet ne peux pas être testé. Sur un projet p
 
 ### Fonctionnalités Bonus
 
-- [ ] Déploiement
+- [X] Déploiement
 - [ ] Gestion de plus de deux pairs.
 - [ ] Gestion de salon
 - [ ] Gestion de l’audio et de la vidéo séparé : quand on s’éloigne, la vidéo se coupe, mais l’audio diminue progressivement avec la distance avant de se couper.
