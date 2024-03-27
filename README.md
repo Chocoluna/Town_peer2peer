@@ -6,14 +6,13 @@
 - PHANG Romeo, p1907961
 
 ## Build
+Toutes les commandes se lancent à la racine du projet.
 
 - `yarn install` pour installer les dépendances.
 
 - `yarn build`pour construire le projet
 
-- `yarn dev` pour démarrer le server en local sur le port 3000.
-
-<http://localhost:3000/>
+- `yarn dev` pour démarrer le server en local sur le port 3000. <http://localhost:3000/>
 
 L'application est déployée sur : <https://town.nautibus.xyz/>
 
