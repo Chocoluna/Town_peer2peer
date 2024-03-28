@@ -24,13 +24,20 @@ L'élément "aperçu vidéo" n'apparait sur la page que si l'appel entre les deu
 
 ## Spécificités du projet
 
-Le projet a été testé sur Firefox et Chrome. Le projet fonctionne bien sur les deux navigateurs mais avec quelques spécifités pour Firefox :
+Le projet a été testé sur Firefox et Chrome. 
+
+### Bug 1
+Le projet fonctionne bien sur les deux navigateurs mais avec quelques spécifités pour Firefox :
 
 - Si l'utilisateur a une option pour couper physiquement la caméra de son ordinateur, et que sa caméra est éteinte au moment de commencer l'appel, une modale apparait pour indiquer le problème sur les deux navigateurs. Sur Chrome, une fois que l'utilisateur a lancé sa caméra, le call se relance tout seul, mais sur Firefox il faut parfois réactualiser la fenêtre et relancer le call pour que tout fonctionne bien.
 
 - Quand le call se lance sur firefox, l'état de chaque fenêtre ne se met à jour que lorsque la fenêtre est active. Exemple: au lancement du call, seule la caméra de la fenêtre active se lance, et il faut cliquer sur la seconde fenêtre pour que la caméra du 2e utilisateur se lance également. Cette spécifité n'existe que parce que nous sommes dans un cas de figure où les utilisateurs "local" et "distant" sont sur la même machine.
 
 Sans camera / webcam active, le projet ne peux pas être testé. Sur un projet plus vaste, on aurait prévu un cas pour que les utilisateurs puissent utiliser l'audio sans la vidéo.
+
+### Bug 2
+Lorsque l'un des deux utilisateurs se déconnecte, l'autre ne peut plus se déplacer, jusqu'à ce qu'une nouvelle connection peer soit créée.
+
 
 ## Etat du projet
 
